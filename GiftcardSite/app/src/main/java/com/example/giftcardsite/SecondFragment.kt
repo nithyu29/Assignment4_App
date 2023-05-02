@@ -25,11 +25,11 @@ import retrofit2.converter.gson.GsonConverterFactory
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
-    private val jsonType = "application/json; charset=utf-8".toMediaType()
+    private final val jsonType = "application/json; charset=utf-8".toMediaType()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_second, container, false)
@@ -39,14 +39,15 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.login_button_submit).setOnClickListener {
-            val username : String = view.findViewById<EditText>(R.id.username).text.toString()
-            val email : String = view.findViewById<EditText>(R.id.registerEmailAddress).text.toString()
-            val password : String = view.findViewById<EditText>(R.id.registerPassword).text.toString()
-            val password2 : String = view.findViewById<EditText>(R.id.registerConfirmPassword).text.toString()
+            var username : String = view.findViewById<EditText>(R.id.username).text.toString()
+            var email : String = view.findViewById<EditText>(R.id.registerEmailAddress).text.toString()
+            var password : String = view.findViewById<EditText>(R.id.registerPassword).text.toString()
+            var password2 : String = view.findViewById<EditText>(R.id.registerConfirmPassword).text.toString()
 
-            val builder: Retrofit.Builder = Retrofit.Builder().baseUrl("http://appsec.moyix.net").addConverterFactory(GsonConverterFactory.create())
-            val retrofit: Retrofit = builder.build()
-            val client: UserInterface = retrofit.create(UserInterface::class.java)
+            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsec.moyix.net").addConverterFactory(GsonConverterFactory.create())
+            var retrofit: Retrofit = builder.build()
+            var client: UserInterface = retrofit.create(UserInterface::class.java)
+            var loggedInUser: User? = null;
             val registerInfo = RegisterInfo(username, email, password, password2)
             Log.d("Register Going", "Going to register now.")
             client.registerUser(registerInfo)?.enqueue(object : Callback<User?> {
@@ -61,14 +62,19 @@ class SecondFragment : Fragment() {
                         Log.d("Register Failure", "Register failure. Yay.")
                         Toast.makeText(activity, "Register Failed", Toast.LENGTH_LONG).show()
                     } else {
-                        val loggedInUser = response.body()
+                        loggedInUser = response.body()
                         Log.d("Register Success", "Register success. Boo.")
                         Log.d("Register Success", "Token:" + loggedInUser?.token.toString())
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.type = "text/giftcards_browse"
+//                        var intent = Intent(Intent.ACTION_VIEW)
+//                        intent.type = "text/giftcards_browse"
+//                        intent.data = Uri.parse("https://appsec.moyix.net/api/index")
+//                        intent.putExtra("User", loggedInUser);
+//                        startActivity(intent)
+                        var intent = Intent(Intent.ACTION_VIEW)
                         intent.data = Uri.parse("https://appsec.moyix.net/api/index")
                         intent.putExtra("User", loggedInUser)
                         startActivity(intent)
+
                     }
                 }
             })

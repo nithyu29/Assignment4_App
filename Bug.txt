@@ -1,0 +1,5 @@
+The vulnerability in the REST API allowing users to use GiftCards that do not belong to them likely stems from the fact that the card_number is being passed as a path parameter in the CardInterface's useCard function.
+This approach makes it easy for an attacker to simply change the card_number and attempt to use someone else's card.
+
+To fix this issue, the server should verify if the card indeed belongs to the user attempting to use it. Instead of just relying on the card_number, the server should also require the user's token for authentication.
+The server can then cross-check the token against the owner of the card before allowing the card to be used. This will ensure that only the rightful owner of the card can use it, thereby mitigating the vulnerability.

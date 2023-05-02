@@ -6,14 +6,9 @@ import android.util.Log
 import android.view.Menu
 import android.widget.Button
 import android.widget.EditText
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.giftcardsite.R
-import com.example.giftcardsite.api.model.BuyCardInfo
 import com.example.giftcardsite.api.model.Card
-import com.example.giftcardsite.api.model.Product
 import com.example.giftcardsite.api.model.User
 import com.example.giftcardsite.api.service.CardInterface
 import de.hdodenhof.circleimageview.CircleImageView
@@ -29,21 +24,21 @@ class UseCard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_card)
         setSupportActionBar(findViewById(R.id.toolbar))
-        val image : CircleImageView = findViewById(R.id.image_view)
+        var image : CircleImageView = findViewById(R.id.image_view)
         val card : Card? = intent.getParcelableExtra("Card")
         findViewById<EditText>(R.id.amount).setText(card?.amount.toString())
-        Glide.with(this).asBitmap().load("http://appsec.moyix.net/" + card?.product?.productImageLink).into(image)
+        Glide.with(this).asBitmap().load("https://appsec.moyix.net/" + card?.product?.productImageLink).into(image)
         val loggedInUser : User? = intent.getParcelableExtra("User")
-        val token : String = "Token " + loggedInUser?.token.toString()
+        var token : String = "Token " + loggedInUser?.token.toString()
         Log.d("Token check", token)
         val outerContext = this
-        val button: Button = findViewById(R.id.submit_buy)
+        var button: Button = findViewById(R.id.submit_buy)
         button.text = "Use Card"
         button.setOnClickListener{
-            val builder: Retrofit.Builder = Retrofit.Builder().baseUrl("http://appsec.moyix.net").addConverterFactory(
+            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsec.moyix.net").addConverterFactory(
                 GsonConverterFactory.create())
-            val retrofit: Retrofit = builder.build()
-            val client: CardInterface = retrofit.create(CardInterface::class.java)
+            var retrofit: Retrofit = builder.build()
+            var client: CardInterface = retrofit.create(CardInterface::class.java)
             Log.d("Use Card Going", "Going to use card now.")
             client.useCard(card?.id, token).enqueue(object : Callback<Card?> {
                 override fun onFailure(call: Call<Card?>, t: Throwable) {
@@ -63,7 +58,7 @@ class UseCard : AppCompatActivity() {
                     }
                     var intent = Intent(outerContext, ProductScrollingActivity::class.java)
                     //intent.type = "text/giftcards"
-                    intent.putExtra("User", loggedInUser)
+                    intent.putExtra("User", loggedInUser);
                     startActivity(intent)
                 }
             })

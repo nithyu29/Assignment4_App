@@ -16,8 +16,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/registerEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/login_button_submit"
@@ -39,8 +38,7 @@
         android:hint="@string/confirm"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/login_button_submit"
-        app:layout_constraintStart_toStartOf="@+id/registerPassword"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="@+id/registerPassword" />
 
     <EditText
         android:id="@+id/registerPassword"
@@ -51,8 +49,7 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/registerConfirmPassword"
-        app:layout_constraintStart_toStartOf="@+id/registerEmailAddress"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="@+id/registerEmailAddress" />
 
     <EditText
         android:id="@+id/registerEmailAddress"
@@ -63,7 +60,6 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/registerPassword"
-        app:layout_constraintStart_toStartOf="@+id/username"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

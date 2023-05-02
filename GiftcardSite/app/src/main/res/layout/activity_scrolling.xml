@@ -34,8 +34,8 @@
                 android:id="@+id/view_cards_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:text="@string/view_cards"
+                android:layout_gravity="bottom|right"
+                android:text="View Cards"
                 android:textColor="@color/black"
                 app:backgroundTint="@android:color/darker_gray" />
 

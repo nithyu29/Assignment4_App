@@ -25,21 +25,21 @@ class GetCard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_card)
         setSupportActionBar(findViewById(R.id.toolbar))
-        val image : CircleImageView = findViewById(R.id.image_view)
+        var image : CircleImageView = findViewById(R.id.image_view)
         val product : Product? = intent.getParcelableExtra("Product")
         findViewById<EditText>(R.id.amount).hint = product?.recommendedPrice.toString()
-        Glide.with(this).asBitmap().load("http://appsec.moyix.net/" + product?.productImageLink).into(image)
+        Glide.with(this).asBitmap().load("https://appsec.moyix.net/" + product?.productImageLink).into(image)
         val productNumber : Int? = product?.productId
         val loggedInUser : User? = intent.getParcelableExtra("User")
-        val token : String = "Token " + loggedInUser?.token.toString()
+        var token : String = "Token " + loggedInUser?.token.toString()
         Log.d("Token check", token)
         val outerContext = this
 
         findViewById<Button>(R.id.submit_buy).setOnClickListener{
             val amount : Int = parseInt(findViewById<EditText>(R.id.amount).text.toString())
-            val builder: Retrofit.Builder = Retrofit.Builder().baseUrl("http://appsec.moyix.net").addConverterFactory(GsonConverterFactory.create())
-            val retrofit: Retrofit = builder.build()
-            val client: CardInterface = retrofit.create(CardInterface::class.java)
+            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsec.moyix.net").addConverterFactory(GsonConverterFactory.create())
+            var retrofit: Retrofit = builder.build()
+            var client: CardInterface = retrofit.create(CardInterface::class.java)
             var card: Card? = null
             val buyCardInfo = BuyCardInfo(amount)
             Log.d("Buy Card Going", "Going to buy card now. Amount $amount")
@@ -60,7 +60,7 @@ class GetCard : AppCompatActivity() {
                         Log.d("Buy Success", "Buy success. Boo.")
                         Log.d("Buy Success", "Token:$token")
                     }
-                    val intent = Intent(outerContext, ProductScrollingActivity::class.java)
+                    var intent = Intent(outerContext, ProductScrollingActivity::class.java)
                     //intent.type = "text/giftcards"
                     intent.putExtra("User", loggedInUser);
                     startActivity(intent)

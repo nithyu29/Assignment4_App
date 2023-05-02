@@ -8,7 +8,7 @@ Answers to the questions are all below
 1.
 There are two categories of intentions in Android:
 	—>Explicit intentions: These intentions are used to launch a particular component from another application or within the current one. The class name or package name of the particular target component is used to create an express purpose.
-            —>Implicit intentions: These intentions are used to call components without naming them explicitly. Implicit intents, on the other hand, specify a broad action to be taken, enabling the system to select the best component to handle the intent based on its category, data, and other factors. It is possible to launch programs, services, or broadcast receivers using implicit intents.
+    —>Implicit intentions: These intentions are used to call components without naming them explicitly. Implicit intents, on the other hand, specify a broad action to be taken, enabling the system to select the best component to handle the intent based on its category, data, and other factors. It is possible to launch programs, services, or broadcast receivers using implicit intents.
 
 2.
 Depending on how they are built and used in the application, both explicit and implicit intents can be used safely. Nevertheless, in general, explicit Intents are thought to be more safe than implicit Intents since they specifically target a part of an application, lowering the possibility of calling erroneous or malicious parts. Additionally, Explicit Intents offer more control over which components can be initiated and what information can be transferred between them, which can aid in preventing potential security flaws. 
@@ -33,6 +33,8 @@ To begin the ProductScrollingActivity with the extra data provided is the intent
 The right technique to construct an intent in Android is either explicitly or implicitly, and which one to use depends on the particular use case and specifications of the application.When beginning a specific component within the same program or a distinct application, explicit intentions are typically utilized. For instance, you would generally use an explicit Intent if you wanted to begin a certain activity within your own app or another app.When you want to carry out an action that can be handled by one or more system components, you often utilize implicit intentions. For instance, you would generally use an implicit Intent with the ACTION_SEND action if you wanted to send an email, A list of email apps that can handle the implicit Intent will be displayed by the system when you use an implicit Intent with the ACTION_SEND action.
 In conclusion, both explicit and implicit intents are acceptable ways to define an intent, and which one to employ depends on the particular use case and application requirements.
 
-
+Answer for part-2.
+I modified the first Intent in the SecondFragment.kt. The incorrect part was setting the MIME type using intent.type = "text/giftcards_browse" which is not a valid MIME type and unnecessary for this use case.
+Instead, I removed that line, allowing the Intent to open the URL using the default web browser or any suitable app installed on the device.
 
 

@@ -1,17 +1,15 @@
 package com.example.giftcardsite
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import com.example.giftcardsite.api.model.LoginInfo
 import com.example.giftcardsite.api.model.User
 import com.example.giftcardsite.api.service.UserInterface
@@ -40,15 +38,15 @@ class ThirdFragment : Fragment() {
         view.findViewById<Button>(R.id.login_button_submit).setOnClickListener {
             // Send JSON of values to server.
             // If auth successful, move to new activity: logged in activity.
-            val username : String = view.findViewById<EditText>(R.id.username).text.toString()
-            val password : String = view.findViewById<EditText>(R.id.registerPassword).text.toString()
+            var username : String = view.findViewById<EditText>(R.id.username).text.toString()
+            var password : String = view.findViewById<EditText>(R.id.registerPassword).text.toString()
 
-            val builder: Retrofit.Builder = Retrofit.Builder().baseUrl("http://appsec.moyix.net").addConverterFactory(
+            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("http://appsec.moyix.net").addConverterFactory(
                 GsonConverterFactory.create())
-            val retrofit: Retrofit = builder.build()
-            val client: UserInterface = retrofit.create(UserInterface::class.java)
+            var retrofit: Retrofit = builder.build()
+            var client: UserInterface = retrofit.create(UserInterface::class.java)
             var loggedInUser: User? = null;
-            val loginInfo = LoginInfo(username, password)
+            var loginInfo = LoginInfo(username, password)
             client.loginUser(loginInfo)?.enqueue(object :
                 Callback<User?> {
                 override fun onFailure(call: Call<User?>, t: Throwable) {
@@ -65,7 +63,7 @@ class ThirdFragment : Fragment() {
                         loggedInUser = response.body()
                         Log.d("Login Success", "Login success. Boo.")
                         Log.d("Login Success", "Token:" + loggedInUser?.token.toString())
-                        val intent = Intent(activity, ProductScrollingActivity::class.java)
+                        var intent = Intent(activity, ProductScrollingActivity::class.java)
                         intent.putExtra("User", loggedInUser);
                         startActivity(intent)
                     }
